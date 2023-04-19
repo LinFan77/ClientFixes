@@ -1,6 +1,6 @@
 This is the current server source of the Lineage Remastered NA/EU community server. 
 
-many fixes have been added by the L1openrm community such changes include
+many fixes have been added by the L1openrm developers & community such changes include
 
 ##04-19-2023 
 CHARACTER PASS PIN DISABLED TO AVOID ACCOUNT LOCKING
