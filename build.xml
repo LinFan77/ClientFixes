@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="L1OpenRM" default="compile" basedir=".">
+	<!-- Set Property -->
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="build.dir" value="build"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="jarfile" value="l1OpenServer.jar"/>
+	<path id="classpath">
+		<fileset dir="${lib.dir}">
+			<include name="c3p0-0.9.5.5.jar"/>
+			<include name="istack-commons-runtime-4.1.1.jar"/>
+			<include name="javolution-5.5.1.jar"/>
+			<include name="jaxb-runtime-2.3.1.jar"/> 
+			<include name="mchange-commons-java-0.2.20.jar"/>
+			<include name="mysql-connector-j-8.0.32.jar"/>
+			<include name="netty-3.10.6.Final.jar"/>
+			<include name="org.eclipse.swt.win32.win32.x86_64-3.122.0.jar"/>
+			<include name="xercesImpl-2.12.2.jar" />
+			<include name="xmlapi.jar"/>
+		</fileset>
+	</path>
+	<!-- Set DefaultTarget -->
+	<target name="all" depends="clean,compile,jar,clean2"/>
+	<!-- clean Target -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+	<!-- Compile Target -->
+	<target name="compile">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" optimize="on" includeantruntime="false" encoding="UTF-8" debug="yes">
+			<src path="${src.dir}"/>
+			<classpath refid="classpath"/>
+			<!--<compilerarg value="-Xlint:deprecation" />-->
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+	<!-- jar Target -->
+	<target name="jar">
+		<jar manifest="${src.dir}/META-INF/MANIFEST.MF" basedir="${build.dir}" jarfile="${jarfile}"/>
+	</target>
+	<!-- clean Target -->
+	<target name="clean2">
+		<delete dir="${build.dir}"/>
+	</target>
+</project>

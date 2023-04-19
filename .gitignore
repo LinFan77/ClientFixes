@@ -1,0 +1,13 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+
+Bin/
+db/
+ManagerLog/
+log/
+logs/
+obj/
+Old/
+/target/
