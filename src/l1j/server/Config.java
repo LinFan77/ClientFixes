@@ -844,7 +844,7 @@ public final class Config {
 	public static boolean USE_CHAR_PASSWORD = false;
 
 	public static String PHONEAUTHENTICATIONQUIZ;
-
+	public static boolean CHARACTER_PIN  = true;
 	public static String PHONECONFIRMATION;
 
 	public static String AUTOMATICPREVENTIONANSWER;
@@ -1007,7 +1007,7 @@ public final class Config {
 			TIME_ZONE = serverSettings.getProperty("TimeZone", "US/Pacific");
 			SERVER_VERSION = serverSettings.getProperty("ServerVersion", "0");
 			ACCOUNT_PASSWORD = Boolean.parseBoolean(serverSettings.getProperty("AccountPassword", "true"));
-
+			CHARACTER_PIN  = Boolean.parseBoolean(serverSettings.getProperty("CharacterPin"));
 			//HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostNameLookup", "false"));
 			//CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty("ClientLanguage", "4"));
 			//SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings.getProperty("SendPacketBeforeTeleport", "false"));

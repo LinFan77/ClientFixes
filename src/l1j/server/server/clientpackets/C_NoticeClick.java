@@ -58,13 +58,13 @@ public class C_NoticeClick {
 			deleteCharacter(client);
 			accountTimeCheck(client);
 			
-		
+			if(Config.CHARACTER_PIN) {
 			if (client.getAccount().getCPW() == null) {
 				client.sendPacket(new S_CharPass(S_CharPass._케릭선택창진입3, false), true);
 			} else {
 				client.sendPacket(new S_CharPass(S_CharPass._케릭선택창진입3, true), true);
 			}
-
+			}
 			/*client.getAccount().탐포인트업데이트(client.getAccount());*/ //미접속탐지급
 
 			client.sendPacket(new S_NewCreateItem(S_NewCreateItem.TAM_POINT,
@@ -79,7 +79,7 @@ public class C_NoticeClick {
 
 			client.sendPacket(new S_CharPass(S_CharPass._케릭선택창진입), true);
 
-		} catch (Exception e) {
+			} catch (Exception e) {
 		}
 	}
 

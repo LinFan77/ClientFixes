@@ -6,6 +6,9 @@
 
 </h1>
 
+##04-19-2023 
+CHARACTER PASS PIN DISABLED TO AVOID ACCOUNT LOCKING
+
 ## Release 4
 Various bug fixes.
 
