@@ -777,30 +777,36 @@ public class L1PcInventory extends L1Inventory {
 	// DB의 character_items로부터 삭제
 	@Override
 	public void deleteItem(L1ItemInstance item) {
-		try {
-			CharactersItemStorage storage = CharactersItemStorage.create();
+        try {
+            CharactersItemStorage storage = CharactersItemStorage.create();
 
-			storage.deleteItem(item);
-		} catch (Exception e) {
-			_log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
-		if (item.isEquipped()) {
-			setEquipped(item, false);
-		}
-		if (_owner.getDollList().size() > 0) {
-			for (L1DollInstance doll : _owner.getDollList()) {
-				if (doll.getItemObjId() == item.getId())
-					doll.deleteDoll();
-			}
-		}
-		_owner.sendPackets(new S_DeleteInventoryItem(item), true);
-		_items.remove(item);
-		if (item.getItem().getWeight() != 0) {
-			_owner.sendPackets(new S_NewCreateItem("무게", _owner));
-			// _owner.sendPackets(new S_PacketBox(S_PacketBox.WEIGHT,
-			// getWeight240()), true);
-		}
-	}
+            storage.deleteItem(item);
+        } catch (Exception e) {
+            _log.log(Level.SEVERE, e.getLocalizedMessage(), e);
+        }
+        if (item.isEquipped()) {
+            setEquipped(item, false);
+            _owner.sendPackets(new S_SystemMessage("Equipped " + item.getLogName() + " cannot delete from your inventory"));
+        }
+
+        if (_owner.getDollList().size() > 0) {
+            for (L1DollInstance doll : _owner.getDollList()) {
+                if (doll.getItemObjId() == item.getId())
+                    doll.deleteDoll();
+            }
+        }
+        _owner.sendPackets(new S_DeleteInventoryItem(item), true);
+        _items.remove(item);
+ 	//add
+        	 _owner.sendPackets(new S_SystemMessage("Removed " + item.getLogName() + " from your inventory"));
+        _owner.sendPackets(new S_SystemMessage("Removed " + item.getLogName() + " from your inventory"));
+        //_owner.sendPackets(new S_ServerMessage(403, _owner.getName(), item.getLogName(), _owner.getName()));
+        if (item.getItem().getWeight() != 0) {
+            _owner.sendPackets(new S_NewCreateItem("Weight", _owner));
+            // _owner.sendPackets(new S_PacketBox(S_PacketBox.WEIGHT,
+            // getWeight240()), true);
+        }
+    }
 
 	public void checkEndTime() {
 		L1ItemInstance item = null;
@@ -857,25 +863,23 @@ public class L1PcInventory extends L1Inventory {
 	}
 
 	private boolean createNewItem(int item_id, int count, int EnchantLevel) {
-		L1ItemInstance item = ItemTable.getInstance().createItem(item_id);
-		if (item != null) {
-			item.setCount(count);
-			item.setEnchantLevel(EnchantLevel);
-			item.setIdentified(true);
-			if (checkAddItem(item, count) == L1Inventory.OK) {
-				storeItem(item);
-			} else { // 가질 수 없는 경우는 지면에 떨어뜨리는 처리의 캔슬은 하지 않는다(부정 방지)
-				L1World.getInstance().getInventory(_owner.getX(), _owner.getY(), _owner.getMapId()).storeItem(item);
+        L1ItemInstance item = ItemTable.getInstance().createItem(item_id);
+        if (item != null) {
+            item.setCount(count);
+            item.setEnchantLevel(EnchantLevel);
+            item.setIdentified(true);
+            if (checkAddItem(item, count) == L1Inventory.OK) {
+                storeItem(item);
+            } else { // 가질 수 없는 경우는 지면에 떨어뜨리는 처리의 캔슬은 하지 않는다(부정 방지)
+            	L1World.getInstance().getInventory(_owner.getX(), _owner.getY(), _owner.getMapId()).storeItem(item); // dont add
 			}
-			_owner.sendPackets(new S_ServerMessage(403, item.getLogName()), true); // %0를
-																					// 손에
-																					// 넣었습니다.
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+			//_owner.sendPackets(new S_ServerMessage(403, item.getLogName()), true);  // dont add
+			_owner.sendPackets(new S_ServerMessage(403, _owner.getName(), item.getLogName(), _owner.getName())); 
+            return true;
+        } else {
+            return false;
+        }
+    }
 	public static int changeval(int type, int cnt, int val, int val2) {
 		int temp = 0;
 

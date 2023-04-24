@@ -322,7 +322,7 @@ public class C_MoveChar extends ClientBasePacket {
 
 			}
 
-			if (pc.getLevel() >= 99) { // 지정 레벨
+			if (pc.getLevel() >= 70) { // 지정 레벨
 				if (pc.getMapId() == 1 || pc.getMapId() == 2) {// 말던
 					// L1Teleport.teleport(pc, 33080, 33390, (short) 4, 5,
 					// true);

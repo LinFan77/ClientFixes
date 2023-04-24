@@ -5449,8 +5449,11 @@ public class C_NPCAction extends ClientBasePacket {
 					if (pc.getLevel() < 75) {
 						pc.setExp(ExpTable.getExpByLevel(75));
 						int lawful = pc.getLawful() + pc.getLawful();
-						if (lawful > 32767) {
-							lawful = 32767;
+						if (lawful <= 32767) {
+							pc.setLawful(10000);
+							S_Lawful s_lawful = new S_Lawful(pc.getId(), pc.getLawful());
+							pc.sendPackets(s_lawful);
+							Broadcaster.broadcastPacket(pc, s_lawful, true);
 						}
 						if (pc.getQuest().get_step(L1Quest.QUEST_55_Roon) == 1 || pc.getQuest().get_step(L1Quest.QUEST_70_Roon) == 1
 								|| pc.getInventory().checkItem(60381)) {

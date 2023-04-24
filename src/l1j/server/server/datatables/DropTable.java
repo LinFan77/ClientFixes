@@ -628,6 +628,8 @@ public class DropTable {
 								if (acquisitor instanceof L1PcInstance) {
 									player = (L1PcInstance) acquisitor;
 									L1ItemInstance l1iteminstance = player.getInventory().findItemId(L1ItemId.ADENA);
+									//add
+									player.sendPackets(new S_ServerMessage( 813, player.getName(), item.getLogName(), npc.getName()));
 									// check Adena count
 									if (l1iteminstance != null && l1iteminstance.getCount() > 2000000000) {
 										targetInventory = L1World.getInstance().getInventory(acquisitor.getX(),acquisitor.getY(), acquisitor.getMapId());

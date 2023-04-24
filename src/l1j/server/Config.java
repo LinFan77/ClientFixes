@@ -841,7 +841,7 @@ public final class Config {
 	public static byte MIN_상아탑_DUNGEON_LEVEL;
 	public static String 자동방지_퀴즈;
 
-	public static boolean USE_CHAR_PASSWORD = false;
+	public static boolean USE_CHAR_PASSWORD = true;
 
 	public static String PHONEAUTHENTICATIONQUIZ;
 	public static boolean CHARACTER_PIN  = true;
@@ -992,6 +992,7 @@ public final class Config {
 
 			USE_CHAR_PASSWORD = Boolean.parseBoolean(serverSettings.getProperty("CharPass"));
 			GAME_SERVER_TYPE = Integer.parseInt(serverSettings.getProperty("ServerType", "0"));
+			CHARACTER_PIN  = Boolean.parseBoolean(serverSettings.getProperty("CharacterPin"));
 			GAME_SERVER_HOST_NAME = serverSettings.getProperty("GameserverHostname", "*");
 			if ("*".equals(GAME_SERVER_HOST_NAME))
 				GAME_SERVER_HOST_NAME = InetAddress.getLocalHost().getHostAddress();
@@ -1007,7 +1008,7 @@ public final class Config {
 			TIME_ZONE = serverSettings.getProperty("TimeZone", "US/Pacific");
 			SERVER_VERSION = serverSettings.getProperty("ServerVersion", "0");
 			ACCOUNT_PASSWORD = Boolean.parseBoolean(serverSettings.getProperty("AccountPassword", "true"));
-			CHARACTER_PIN  = Boolean.parseBoolean(serverSettings.getProperty("CharacterPin"));
+
 			//HOSTNAME_LOOKUPS = Boolean.parseBoolean(serverSettings.getProperty("HostNameLookup", "false"));
 			//CLIENT_LANGUAGE = Integer.parseInt(serverSettings.getProperty("ClientLanguage", "4"));
 			//SEND_PACKET_BEFORE_TELEPORT = Boolean.parseBoolean(serverSettings.getProperty("SendPacketBeforeTeleport", "false"));
